@@ -1,7 +1,7 @@
 let questions = [];
 let answers = [];
 
-// Load both txt files
+// Load question and answer files
 Promise.all([
   fetch('questions.txt').then(res => res.text()),
   fetch('answers.txt').then(res => res.text())
@@ -12,6 +12,15 @@ Promise.all([
   document.getElementById('result').innerText = "❌ Failed to load files.";
   console.error("File load error:", err);
 });
+
+function speak(text) {
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1; // Speed (1 = normal)
+  utter.pitch = 1; // Pitch (1 = normal)
+  utter.lang = 'en-IN'; // Accent
+  speechSynthesis.cancel(); // Cancel any ongoing speech
+  speechSynthesis.speak(utter);
+}
 
 function search() {
   const input = document.getElementById('searchBox').value.trim().toLowerCase();
@@ -30,17 +39,30 @@ function search() {
   }
 
   matches.forEach(({ question, index }) => {
+    const container = document.createElement('div');
+
     const qDiv = document.createElement('div');
     qDiv.className = "question";
-    qDiv.innerHTML = `🔍 <b>${question}</b>`;
+    qDiv.innerHTML = `🔍 ${question}`;
+
+    const aDiv = document.createElement('div');
+    aDiv.className = "answer";
+    aDiv.style.display = 'none';
+    aDiv.innerHTML = `📜 ${answers[index]}`;
 
     qDiv.onclick = () => {
-      resultDiv.innerHTML = `
-        <div class="question">🔍 <b>${question}</b></div>
-        <div class="answer">📜 ${answers[index]}</div>
-      `;
+      const isVisible = aDiv.style.display === 'block';
+      aDiv.style.display = isVisible ? 'none' : 'block';
+
+      if (!isVisible) {
+        speak(answers[index]);
+      } else {
+        speechSynthesis.cancel();
+      }
     };
 
-    resultDiv.appendChild(qDiv);
+    container.appendChild(qDiv);
+    container.appendChild(aDiv);
+    resultDiv.appendChild(container);
   });
 }
