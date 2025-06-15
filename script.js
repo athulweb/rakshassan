@@ -1,43 +1,48 @@
-let questions = [], answers = [];
+let questions = [];
+let answers = [];
 
-Promise.all([
-  fetch('questions.txt').then(res => res.text()),
-  fetch('answers.txt').then(res => res.text())
-]).then(([qText, aText]) => {
-  questions = qText.trim().split('\n');
-  answers = aText.trim().split('\n');
-});
+// Load questions
+fetch('questions.txt')
+  .then(res => res.text())
+  .then(data => {
+    questions = data.split('\n').map(q => q.trim());
+  });
 
-document.getElementById('searchBox').addEventListener('input', function () {
-  const query = this.value.trim().toLowerCase();
+// Load answers
+fetch('answers.txt')
+  .then(res => res.text())
+  .then(data => {
+    answers = data.split('\n').map(a => a.trim());
+  });
+
+function search() {
+  const input = document.getElementById('searchBox').value.toLowerCase();
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = "";
 
-  if (!query) return;
+  const matches = questions
+    .map((q, i) => ({ q, i }))
+    .filter(obj => obj.q.toLowerCase().includes(input));
 
-  let matchCount = 0;
-
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].toLowerCase().includes(query)) {
-      const highlighted = questions[i].replace(
-        new RegExp(query, "gi"),
-        (match) => `<mark>${match}</mark>`
-      );
-      resultDiv.innerHTML += `
-        <div class="match">
-          <strong>🔎 ${highlighted}</strong><br>
-          📜 ${answers[i]}
-        </div>`;
-      matchCount++;
-    }
+  if (matches.length === 0) {
+    resultDiv.innerHTML = "<p>❌ No matching question found.</p>";
+    return;
   }
 
-  if (matchCount === 0) {
-    resultDiv.innerHTML = "👻 No result found";
-  }
-});
+  matches.forEach(({ q, i }) => {
+    const questionEl = document.createElement('div');
+    questionEl.innerHTML = `🔎 <span style="font-weight:bold; background:yellow;">${q}</span>`;
+    questionEl.style.cursor = 'pointer';
+    questionEl.style.marginBottom = '10px';
 
-// Loader removal after animation
-setTimeout(() => {
-  document.getElementById('loader').style.display = "none";
-}, 3000);
+    questionEl.addEventListener('click', () => {
+      const answerEl = document.createElement('div');
+      answerEl.innerHTML = `📜 <span style="color:cyan;">${answers[i]}</span>`;
+      resultDiv.innerHTML = ""; // Clear existing
+      resultDiv.appendChild(questionEl);
+      resultDiv.appendChild(answerEl);
+    });
+
+    resultDiv.appendChild(questionEl);
+  });
+}
