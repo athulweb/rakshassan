@@ -2,99 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Rakshassan 🔍 Ritual Search Engine</title>
+  <title>RAKSHASSAN 🔍</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #0f0f0f, #1a0b0b);
-      color: #f8e9c4;
+      background: #0f0c0c;
+      color: #fff;
       font-family: 'Georgia', serif;
       text-align: center;
+      padding: 3rem;
     }
-
-    .loader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: crimson;
-      font-size: 2rem;
-      font-weight: bold;
-      z-index: 100;
-      animation: fadeOut 3s forwards;
-    }
-
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; display: none; }
-    }
-
     h1 {
-      margin-top: 80px;
-      font-size: 3em;
-      color: crimson;
-      text-shadow: 0 0 15px #900;
+      color: red;
+      font-size: 3rem;
+      text-shadow: 2px 2px 8px #ff0000;
     }
-
-    h3 {
-      color: #b48b6e;
-      font-style: italic;
-      margin-bottom: 40px;
-    }
-
     input {
-      padding: 15px;
+      padding: 1rem;
       width: 60%;
       max-width: 500px;
-      border-radius: 10px;
-      border: none;
-      background: #221010;
-      color: #f8e9c4;
-      font-size: 18px;
-      box-shadow: 0 0 10px #400;
+      font-size: 1.2rem;
+      background: #1a0e0e;
+      border: 2px solid #900;
+      color: #fff;
+      border-radius: 8px;
     }
-
     #result {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #00ffcc;
-      padding: 10px;
+      margin-top: 2rem;
       text-align: left;
-      width: 80%;
+      padding: 1rem;
+      border-top: 1px solid #444;
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
-
-    .match {
-      margin-bottom: 10px;
-      border-bottom: 1px solid #444;
-      padding-bottom: 5px;
+    .question {
+      cursor: pointer;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      background: #222;
+      border-left: 4px solid #ff0055;
+      transition: background 0.3s ease;
     }
-
+    .question:hover {
+      background: #330000;
+    }
+    .answer {
+      margin-top: 0.5rem;
+      padding-left: 1.5rem;
+      color: cyan;
+    }
     footer {
-      margin-top: 60px;
-      font-size: 14px;
-      color: #555;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #999;
     }
   </style>
 </head>
 <body>
-
-  <div class="loader" id="loader">🩸 Rakshassan is Awakening...</div>
-
   <h1>RAKSHASSAN 🔍</h1>
-  <h3>“Your Rakshassan is ready boss.”</h3>
-
-  <input type="text" id="searchBox" placeholder="Summon your query...">
+  <p><em>“Your Rakshassan is ready boss.”</em></p>
+  <input type="text" id="searchBox" placeholder="Type to search..." onkeyup="search()">
   <div id="result"></div>
-
-  <footer>👁️‍🗨️ Created by Athul | CEO of Crimson Vault | Crimson Vault</footer>
-
+  <footer>
+    👁 Created by Athul | CEO of Crimson Vault | Crimson Youth
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>
