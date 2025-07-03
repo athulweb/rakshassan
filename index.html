@@ -1,71 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>RAKSHASSAN 🔍</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Athul Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #0f0c0c;
-      color: #fff;
-      font-family: 'Georgia', serif;
-      text-align: center;
-      padding: 3rem;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e9ecef);
+      color: #222;
+      line-height: 1.6;
     }
-    h1 {
-      color: red;
-      font-size: 3rem;
-      text-shadow: 2px 2px 8px #ff0000;
+
+    header {
+      background: #ffffffcc;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
-    input {
-      padding: 1rem;
-      width: 60%;
-      max-width: 500px;
-      font-size: 1.2rem;
-      background: #1a0e0e;
-      border: 2px solid #900;
-      color: #fff;
-      border-radius: 8px;
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #1f1f1f;
     }
-    #result {
-      margin-top: 2rem;
-      text-align: left;
-      padding: 1rem;
-      border-top: 1px solid #444;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .question {
+
+    .menu-icon {
+      font-size: 24px;
       cursor: pointer;
-      margin: 1rem 0;
-      padding: 0.5rem;
-      background: #222;
-      border-left: 4px solid #ff0055;
-      transition: background 0.3s ease;
+      display: none;
     }
-    .question:hover {
-      background: #330000;
+
+    nav ul {
+      display: flex;
+      gap: 15px;
+      list-style: none;
     }
-    .answer {
-      margin-top: 0.5rem;
-      padding-left: 1.5rem;
-      color: cyan;
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
     }
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #999;
+
+    nav ul li a:hover {
+      color: #0077ff;
+    }
+
+    .projects {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .project {
+      background: #ffffffdd;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+    }
+
+    .project img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+
+    .project h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .project p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .project a {
+      margin-top: 15px;
+      display: inline-block;
+      background: #0077ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .project a:hover {
+      background: #005fe0;
+    }
+
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        text-align: center;
+        padding: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>RAKSHASSAN 🔍</h1>
-  <p><em>“Your Rakshassan is ready boss.”</em></p>
-  <input type="text" id="searchBox" placeholder="Type to search..." onkeyup="search()">
-  <div id="result"></div>
-  <footer>
-    👁 Created by Athul | CEO of Crimson Vault | Crimson Youth
-  </footer>
-  <script src="script.js"></script>
+
+  <header>
+    <div class="logo">Athul Web</div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <nav>
+      <ul id="nav-links">
+        <li><a href="#tool1">Tool 1</a></li>
+        <li><a href="#secure">Secure Me</a></li>
+        <li><a href="#bhram">Bhramasthram</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="projects">
+    <div class="project" id="tool1">
+      <img src="https://via.placeholder.com/800x400.png?text=Tool+1" alt="Tool 1 image">
+      <h3>Tool 1</h3>
+      <p>Multi-purpose ethical hacking simulation tool with beautiful UI and interactive elements.</p>
+      <a href="tool1.html">Visit Tool 1</a>
+    </div>
+
+    <div class="project" id="secure">
+      <img src="https://via.placeholder.com/800x400.png?text=Secure+Me" alt="Secure Me image">
+      <h3>Secure Me (Chat PWA)</h3>
+      <p>Offline-enabled group chat app with public & private groups. Built for privacy and real-time experience.</p>
+      <a href="secure-me/index.html">Visit Secure Me</a>
+    </div>
+
+    <div class="project" id="bhram">
+      <img src="https://via.placeholder.com/800x400.png?text=Bhramasthram" alt="Bhramasthram image">
+      <h3>Bhramasthram</h3>
+      <p>A web-based penetration testing tool combining multiple scripts into one powerful dashboard.</p>
+      <a href="bhramasthram/index.html">Visit Bhramasthram</a>
+    </div>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("show");
+    }
+  </script>
+
 </body>
 </html>
